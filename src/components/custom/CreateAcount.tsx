@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
+import { validateEmail, validatePassword } from '@/lib/validation'
 
 
 type Inputs = {
@@ -21,6 +22,8 @@ type Inputs = {
 
 const CreateAcount = () => {
     const [showPassword, setShowPassword] = useState<CheckedState>(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const {
         register,
         handleSubmit,
@@ -36,10 +39,13 @@ const CreateAcount = () => {
         if (errors[feild]) return "text-red-500";
         return "text-green-500"
     }
-
+    const onError = (errors: any) => {
+        const firstErrorField = Object.keys(errors)[0] as keyof Inputs;
+        const message = errors[firstErrorField]?.message || "Invalid input";
+        toast.error(message);
+    };
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         if (data.confirmPassword !== data.password) return toast.error("Confirm Password does not match!");
-
         const sendingData = {
             name: data.name,
             email: data.email,
@@ -48,10 +54,10 @@ const CreateAcount = () => {
         // register_form_mutation.mutate(sendingData);
     }
     return (
-        <div className='h-full px-12 py-[20px] w-full'>
+        <div className='h-full max-md:px-[8px] px-12 max-md:py-[35px]  py-[20px] w-full'>
             <h2 className='text-center text-2xl font-medium'>Create your account</h2>
             <div className='mt-[20px]'>
-                <form onSubmit={handleSubmit(onSubmit)} className=''>
+                <form onSubmit={handleSubmit(onSubmit, onError)} className=''>
                     {/* Name field */}
                     <div className='my-[20px]'>
                         <label htmlFor="" className='text-20px font-medium'>Name:</label>
@@ -71,16 +77,6 @@ const CreateAcount = () => {
                                 },
                             })} />
                             <IoMdCheckmarkCircleOutline className={`h-5 w-5 ${getTickColor("email")}`} />
-                            {
-                                errors.email?.message ? (
-                                    <div className="absolute right-[4%] top-[-85%] mt-2">
-                                        <div className="relative bg-[#ffffff] shadow-xl border font-medium text-[black] text-sm px-3 py-2 rounded-lg">
-                                            {errors.email?.message}
-                                        </div>
-                                    </div>
-                                ) : " "
-                            }
-
                         </div>
                     </div>
                     {/* Password */}
@@ -95,20 +91,10 @@ const CreateAcount = () => {
                                 pattern: {
                                     value: /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).+$/,
                                     message:
-                                        "Must include A-Z, 0-9, and a symbol.",
+                                        "Password Must include A-Z, 0-9, and a symbol.",
                                 },
                             })} />
                             <IoMdCheckmarkCircleOutline className={`h-5 w-5 ${getTickColor("password")}`} />
-                            {
-                                errors.password?.message ? (
-                                    <div className="absolute right-[4%] top-[-85%] mt-2">
-                                        <div className="relative font-medium bg-[#ffffff] shadow-xl border text-[black] text-sm px-3 py-2 rounded-lg ">
-                                            {errors.password?.message}
-                                        </div>
-                                    </div>
-                                ) : " "
-                            }
-
                         </div>
                     </div>
                     {/* Confirm Password */}
@@ -123,20 +109,10 @@ const CreateAcount = () => {
                                 pattern: {
                                     value: /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).+$/,
                                     message:
-                                        "Must include A-Z, 0-9, and a symbol.",
+                                        "Password Must include A-Z, 0-9, and a symbol.",
                                 },
                             })} />
                             <IoMdCheckmarkCircleOutline className={`h-5 w-5 ${getTickColor("confirmPassword")}`} />
-                            {
-                                errors.confirmPassword?.message ? (
-                                    <div className="absolute right-[4%] top-[-85%] mt-2">
-                                        <div className="relative font-medium bg-[#ffffff] shadow-xl border text-[black] text-sm px-3 py-2 rounded-lg">
-                                            {errors.confirmPassword?.message}
-                                        </div>
-                                    </div>
-                                ) : " "
-                            }
-
                         </div>
                     </div>
 
