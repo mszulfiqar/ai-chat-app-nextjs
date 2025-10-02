@@ -54,7 +54,7 @@ const CreateAcount = () => {
         // register_form_mutation.mutate(sendingData);
     }
     return (
-        <div className='h-screen max-sm:px-[20px] px-12 max-md:pt-[60px]  pt-[20px] w-full '>
+        <div className='h-screen max-sm:px-[20px] px-12 max-md:pt-[60px]  pt-[20px] w-full overflow-hidden '>
             <h2 className='text-center text-2xl font-medium'>Create your account</h2>
             <div className='mt-[20px]'>
                 <form onSubmit={handleSubmit(onSubmit, onError)} className=''>
