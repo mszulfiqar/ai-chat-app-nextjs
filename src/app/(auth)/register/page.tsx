@@ -18,7 +18,7 @@ type Inputs = {
     confirmPassword: string
 }
 
-const page = () => {
+const Page = () => {
     const [showPassword, setShowPassword] = useState<CheckedState>(false);
     const {
         register,
@@ -193,4 +193,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
