@@ -60,7 +60,7 @@ const CreateAcount = () => {
                 <form onSubmit={handleSubmit(onSubmit, onError)} className=''>
                     {/* Name field */}
                     <div className='my-[20px]'>
-                        <label htmlFor="" className='text-20px font-medium'>Name:</label>
+                        <label htmlFor="" className=' font-medium'>Name:</label>
                         <div className='flex items-center border-b-[2px] border-t-[2px] border-[#0E87CC] relative'>
                             <Input className='border-l-0 border-r-0  rounded-none focus:outline-none !text-[16px]   shadow-none focus:shadow-none focus:ring-0' {...register("name", { required: true })} />
                             <IoMdCheckmarkCircleOutline className={`h-5 w-5 ${getTickColor("name")}`} />
@@ -122,9 +122,9 @@ const CreateAcount = () => {
                     <div className='flex items-center justify-between text-[14px]'>
                         <div className='flex items-center gap-2'>
                             <Checkbox className='w-5 h-5 border border-gray-300 rounded
-                 data-[state=checked]:bg-[#0E87CC]
-                 data-[state=checked]:border-[#0E87CC]
-                 focus:ring-0' id='pass' checked={showPassword} onCheckedChange={setShowPassword} />
+                                                data-[state=checked]:bg-[#0E87CC]
+                                                data-[state=checked]:border-[#0E87CC]
+                                                focus:ring-0' id='pass' checked={showPassword} onCheckedChange={setShowPassword} />
                             <label htmlFor='pass'>Show Password </label>
                         </div>
                         <Link href="/sigin" className='font-light underline'>Alreagy have an account?</Link>
@@ -137,7 +137,6 @@ const CreateAcount = () => {
                         //     </Button> :
                         <Button className='w-full !p-6 mt-5 '>Create an account</Button>
                     }
-                    {/* <MorphingButton  idleText="Create Account" /> */}
                 </form>
 
                 <div className="flex items-center mt-2">
