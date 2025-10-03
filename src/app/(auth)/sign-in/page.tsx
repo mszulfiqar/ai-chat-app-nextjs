@@ -43,7 +43,7 @@ const Page = () => {
     const signInwithFacebook = async () => {
         console.log("hi")
         const data = await authClient.signIn.social({
-            provider:"facebook"
+            provider:"google"
         })
         console.log(data?.error)
     }
