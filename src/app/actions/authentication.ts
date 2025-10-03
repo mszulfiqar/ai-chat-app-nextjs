@@ -2,6 +2,9 @@
 
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+// import { createAuthClient } from "better-auth/auth-client"
+
+// const authClient = createAuthClient()
 
 export const createUser = async (formData: FormData) => {
     const name = formData.get("name") as string;
@@ -43,3 +46,9 @@ export const signIn = async (formData: FormData) => {
     }
     redirect("/dashboard")
 }
+
+// export const signInwithfacebook = async () => {
+//     const data = await authClient.signIn.social({
+//         provider: "facebook"
+//     })
+// }
