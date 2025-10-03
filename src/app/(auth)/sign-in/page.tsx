@@ -19,7 +19,6 @@ const Page = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
     } = useForm<Inputs>({ mode: "onChange" });
     const onError = (errors: any) => {
         const firstErrorField = Object.keys(errors)[0] as keyof Inputs;
@@ -142,7 +141,7 @@ const Page = () => {
                                     <Button className='w-full !p-6 mt-5 '>Create an account</Button>
                                 </form>
                                 <div className='flex justify-center mt-[10px] text-[15px] gap-1'>
-                                    <span className=''>Don't have an account?</span><Link href="/register" className='font-medium'>Sign up</Link>
+                                    <span className=''>Don&apos;t have an account?</span><Link href="/register" className='font-medium'>Sign up</Link>
                                 </div>
                             </div>
                         </div>
