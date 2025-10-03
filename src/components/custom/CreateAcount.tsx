@@ -10,20 +10,13 @@ import Link from 'next/link'
 import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
-import { validateEmail, validatePassword } from '@/lib/validation'
+import { CreateAccountProps, Inputs } from '@/utils/types'
+import { createUser } from '@/app/actions/createUser'
+import { useRouter } from 'next/navigation'
 
-
-type Inputs = {
-    name: string
-    email: string
-    password: string
-    confirmPassword: string
-}
-
-const CreateAcount = () => {
+const CreateAcount = ({ loading, setLoading }: CreateAccountProps) => {
     const [showPassword, setShowPassword] = useState<CheckedState>(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const router = useRouter()
     const {
         register,
         handleSubmit,
@@ -45,13 +38,20 @@ const CreateAcount = () => {
         toast.error(message);
     };
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        
         if (data.confirmPassword !== data.password) return toast.error("Confirm Password does not match!");
-        const sendingData = {
-            name: data.name,
-            email: data.email,
-            password: data.password
+
+        const formData = new FormData();
+        formData.append("name", data.name);
+        formData.append("email", data.email);
+        formData.append("password", data.password);
+        setLoading(true)
+        const response = await createUser(formData);
+
+        if (response.status == false) {
+            toast.error(response?.message || "Signup failed!")
         }
-        // register_form_mutation.mutate(sendingData);
+        setLoading(false)
     }
     return (
         <div className='h-screen max-sm:px-[20px] px-12 max-md:pt-[60px]  pt-[20px] w-full overflow-hidden '>
@@ -127,21 +127,14 @@ const CreateAcount = () => {
                                                 focus:ring-0' id='pass' checked={showPassword} onCheckedChange={setShowPassword} />
                             <label htmlFor='pass'>Show Password </label>
                         </div>
-                        <Link href="/sigin" className='font-light underline'>Alreagy have an account?</Link>
+                        {/* <Link href="/sigin" className='font-light underline'>Alreagy have an account?</Link> */}
                     </div>
-                    {
-                        //   register_form_mutation.isPending ?
-                        //     <Button className="flex items-center gap-2 w-full !p-6 mt-5 cursor-pointer hover:bg-primary/70">
-                        //       <Loader2 className="w-5 h-5 animate-spin" />
-                        //       Submitting............
-                        //     </Button> :
                         <Button className='w-full !p-6 mt-5 '>Create an account</Button>
-                    }
                 </form>
 
                 <div className="flex items-center mt-2">
                     <div className="flex-grow border-t border-gray-300"></div>
-                    <span className="mx-4 text-gray-500 font-medium">OR</span>
+                    <span className="mx-4 text-gray-500 text-[15px] font-medium">Or Continue with</span>
                     <div className="flex-grow border-t border-gray-300"></div>
                 </div>
 
