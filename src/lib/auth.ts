@@ -17,5 +17,11 @@ export const auth = betterAuth({
             maxAge:60*2 
         }
     },
-    plugins:[nextCookies()]
+    plugins:[nextCookies()],
+    socialProviders:{
+        facebook:{
+            clientId: process.env.FACEBOOK_CLIENT_ID as string, 
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string, 
+        }
+    }
 });
