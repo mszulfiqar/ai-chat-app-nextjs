@@ -1,8 +1,11 @@
 // server
-import { prisma } from "../../prisma";
+// import { prisma } from "../utils/prisma";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
+import { PrismaClient } from "../../generated/prisma/client"
+
+const prisma = new PrismaClient();
 
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
@@ -23,5 +26,9 @@ export const auth = betterAuth({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         },
+        facebook: {
+            clientId: process.env.FACEBOOK_CLIENT_ID as string,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+        }
     }
 });

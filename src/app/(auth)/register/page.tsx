@@ -1,5 +1,6 @@
 "use client"
 import CreateAcount from "@/components/custom/CreateAcount"
+import { authClient } from "@/lib/auth-client"
 import Image from "next/image"
 import { useState } from "react"
 import { ClipLoader } from "react-spinners"

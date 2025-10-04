@@ -40,10 +40,19 @@ const Page = () => {
         }
 
     }
+    const signInwithGoogle = async () => {
+        // console.log("hi")
+        setLoading(true)
+        const data = await authClient.signIn.social({
+            provider:"google"
+        })
+        console.log(data?.error)
+        setLoading(false)
+    }
     const signInwithFacebook = async () => {
         console.log("hi")
         const data = await authClient.signIn.social({
-            provider:"google"
+            provider:"facebook"
         })
         console.log(data?.error)
     }
@@ -83,7 +92,7 @@ const Page = () => {
                                         <span className='text-sm font-semibold'>Login with Facebook</span>
                                     </button>
 
-                                    <button className="max-lg:w-full flex-1 flex gap-2 items-center justify-center border rounded-md shadow-xs bg-white border-gray-300 hover:bg-gray-100 transition py-2">
+                                    <button onClick={signInwithGoogle} className="max-lg:w-full flex-1 flex gap-2 items-center justify-center border rounded-md shadow-xs bg-white border-gray-300 hover:bg-gray-100 transition py-2">
                                         <Image src="/google.png" width={20} height={20} alt='google logo' />
                                         <span className='text-sm font-semibold'>Login with Google</span>
                                     </button>

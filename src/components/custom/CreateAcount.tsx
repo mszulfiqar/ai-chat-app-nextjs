@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { CreateAccountProps, Inputs } from '@/utils/types'
 import { createUser } from '@/app/actions/authentication'
+import { authClient } from '@/lib/auth-client'
 
 const CreateAcount = ({ loading, setLoading }: CreateAccountProps) => {
     const [showPassword, setShowPassword] = useState<CheckedState>(false);
@@ -48,6 +49,14 @@ const CreateAcount = ({ loading, setLoading }: CreateAccountProps) => {
         }
         setLoading(false)
     }
+         const signInwithGoogle = async () => {
+             setLoading(true)
+             const data = await authClient.signIn.social({
+                 provider:"google"
+             })
+             console.log(data?.error)
+             setLoading(false)
+         }
     return (
         <div className='h-screen max-sm:px-[20px] px-12 max-md:pt-[60px]  pt-[20px] w-full overflow-hidden '>
             <h2 className='text-center text-2xl font-medium'>Create your account</h2>
@@ -59,7 +68,7 @@ const CreateAcount = ({ loading, setLoading }: CreateAccountProps) => {
                         <span className='text-sm font-semibold'>Sign up with Facebook</span>
                     </button>
 
-                    <button className="max-lg:w-full flex-1 flex gap-2 items-center justify-center border rounded-md shadow-xs bg-white border-gray-300 hover:bg-gray-100 transition py-2">
+                    <button onClick={signInwithGoogle} className="max-lg:w-full flex-1 flex gap-2 items-center justify-center border rounded-md shadow-xs bg-white border-gray-300 hover:bg-gray-100 transition py-2">
                         <Image src="/google.png" width={20} height={20} alt='google logo' className='max-lg:-ml-[13px]' />
                         <span className='text-sm font-semibold'>Sign up with Google</span>
                     </button>
