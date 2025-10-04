@@ -51,10 +51,12 @@ const Page = () => {
     }
     const signInwithFacebook = async () => {
         console.log("hi")
+        setLoading(true)
         const data = await authClient.signIn.social({
             provider:"facebook"
         })
         console.log(data?.error)
+        setLoading(false)
     }
     return (
         <>
