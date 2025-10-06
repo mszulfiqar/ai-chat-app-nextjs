@@ -56,13 +56,23 @@ const CreateAcount = ({ loading, setLoading }: CreateAccountProps) => {
              console.log(data?.error)
              setLoading(false)
          }
+
+             const signInwithFacebook = async () => {
+                 console.log("hi")
+                 setLoading(true)
+                 const data = await authClient.signIn.social({
+                     provider:"facebook"
+                 })
+                 console.log(data?.error)
+                 setLoading(false)
+             }
     return (
         <div className='h-screen max-sm:px-[20px] px-12 max-md:pt-[60px]  pt-[20px] w-full overflow-hidden '>
             <h2 className='text-center text-2xl font-medium'>Create your account</h2>
             <p className='text-center text-[#807b7b] text-[13px] mt-[10px] font-semibold'>Conversations without borders <br />Get started in seconds</p>
             <div className='mt-[20px]'>
                 <div className="flex flex-col lg:flex-row items-center justify-center mt-2 gap-2">
-                    <button className="max-lg:w-full flex-1 flex gap-2 items-center justify-center border rounded-md shadow-xs bg-white border-gray-300 hover:bg-gray-100 transition py-2">
+                    <button onClick={signInwithFacebook} className="max-lg:w-full flex-1 flex gap-2 items-center justify-center border rounded-md shadow-xs bg-white border-gray-300 hover:bg-gray-100 transition py-2">
                         <Image src="/facebook.png" width={20} height={20} alt='facebook logo' />
                         <span className='text-sm font-semibold'>Sign up with Facebook</span>
                     </button>
